@@ -27,7 +27,7 @@ fi
 
 jar="$work/bumpwise-$version.jar"
 if [ ! -f "$jar" ]; then
-  if ! curl -fsSL "https://gilware.com/bumpwise/cli/bumpwise-$version.jar" -o "$jar.part"; then
+  if ! curl -fsSL -A "bumpwise-action/1.0.1 curl" "https://gilware.com/bumpwise/cli/bumpwise-$version.jar" -o "$jar.part"; then
     echo "::error::Could not download Bumpwise CLI $version."
     exit 2
   fi
