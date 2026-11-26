@@ -1,0 +1,67 @@
+name: Bumpwise dependency upgrade check
+description: Lists the places in your Java or Kotlin code that the dependency versions changed in a pull request break.
+author: Gilware
+branding:
+  icon: git-pull-request
+  color: blue
+
+inputs:
+  base:
+    description: Git revision to compare the build files with. Defaults to the pull request's base branch.
+    required: false
+    default: ''
+  build:
+    description: >-
+      Command that compiles the project, for example `mvn -B -q compile` or `./gradlew compileJava`. The action runs
+      it with the base revision's build files, so the classes are compiled against the versions used before the pull
+      request, then checks them against the new ones. Leave empty if an earlier step already built the project that
+      way.
+    required: false
+    default: ''
+  project:
+    description: Project folder, relative to the repository root.
+    required: false
+    default: '.'
+  fail-on-break:
+    description: Fail the job when an upgrade breaks places in the project (exit code 1).
+    required: false
+    default: 'true'
+  comment:
+    description: Post the result as a pull request comment, updated on each push. Needs `pull-requests write` permission.
+    required: false
+    default: 'false'
+  version:
+    description: Bumpwise CLI version.
+    required: false
+    default: '1.1.3'
+  sha256:
+    description: SHA-256 of the CLI jar. Required when `version` is not the default.
+    required: false
+    default: 'dd159161b04fb518a3ec6adaeeb975d6b7231784825e259415fa26eeb0b1160c'
+  github-token:
+    description: Token used to post the comment.
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  exit-code:
+    description: 0 safe, 1 breaks places in the project, 2 Bumpwise could not tell.
+    value: ${{ steps.check.outputs.exit-code }}
+
+runs:
+  using: composite
+  steps:
+    - id: check
+      shell: bash
+      env:
+        INPUT_BASE: ${{ inputs.base }}
+        INPUT_PROJECT: ${{ inputs.project }}
+        INPUT_BUILD: ${{ inputs.build }}
+        INPUT_FAIL: ${{ inputs.fail-on-break }}
+        INPUT_COMMENT: ${{ inputs.comment }}
+        INPUT_VERSION: ${{ inputs.version }}
+        INPUT_SHA256: ${{ inputs.sha256 }}
+        GH_TOKEN: ${{ inputs.github-token }}
+        BASE_REF: ${{ github.base_ref }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+      run: "$GITHUB_ACTION_PATH/check.sh"
