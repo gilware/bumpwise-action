@@ -2,7 +2,7 @@
 # Runs `bumpwise upgrade --changed-since` for the GitHub Action. Inputs come from action.yml as INPUT_* variables.
 set -uo pipefail
 
-version=${INPUT_VERSION:-1.1.3}
+version=${INPUT_VERSION:-1.1.4}
 sha=${INPUT_SHA256:-}
 base=${INPUT_BASE:-}
 project=${INPUT_PROJECT:-.}
@@ -27,7 +27,7 @@ fi
 
 jar="$work/bumpwise-$version.jar"
 if [ ! -f "$jar" ]; then
-  if ! curl -fsSL -A "bumpwise-action/1.0.1 curl" "https://gilware.com/bumpwise/cli/bumpwise-$version.jar" -o "$jar.part"; then
+  if ! curl -fsSL -A "bumpwise-action/1.1.0 curl" "https://gilware.com/bumpwise/cli/bumpwise-$version.jar" -o "$jar.part"; then
     echo "::error::Could not download Bumpwise CLI $version."
     exit 2
   fi

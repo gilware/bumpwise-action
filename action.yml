@@ -33,11 +33,11 @@ inputs:
   version:
     description: Bumpwise CLI version.
     required: false
-    default: '1.1.3'
+    default: '1.1.4'
   sha256:
     description: SHA-256 of the CLI jar. Required when `version` is not the default.
     required: false
-    default: 'dd159161b04fb518a3ec6adaeeb975d6b7231784825e259415fa26eeb0b1160c'
+    default: '2b3459aa44312ccb0944c25a7dee563600722b0589a25bfc0182ea577fe26877'
   github-token:
     description: Token used to post the comment.
     required: false

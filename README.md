@@ -59,7 +59,7 @@ that way in an earlier step.
 | `project` | `.` | Project folder. |
 | `fail-on-break` | `true` | Fail the job when an upgrade breaks places in the project. |
 | `comment` | `false` | Post or update a pull request comment. Needs `pull-requests: write`. |
-| `version` / `sha256` | 1.1.3 and its SHA-256 | Bumpwise command line version. Set both to pin another one. |
+| `version` / `sha256` | 1.1.4 and its SHA-256 | Bumpwise command line version. Set both to pin another one. |
 
 Output `exit-code`: 0 safe for this project, 1 breaks places in it, 2 Bumpwise could not tell (the job does not fail
 on 2).
