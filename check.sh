@@ -2,7 +2,7 @@
 # Runs `bumpwise upgrade --changed-since` for the GitHub Action. Inputs come from action.yml as INPUT_* variables.
 set -uo pipefail
 
-version=${INPUT_VERSION:-1.1.4}
+version=${INPUT_VERSION:-1.1.5}
 sha=${INPUT_SHA256:-}
 base=${INPUT_BASE:-}
 project=${INPUT_PROJECT:-.}
